@@ -6,12 +6,6 @@ using namespace std;
 
 typedef List<int> LIST;
 
-//template <typename T>
-//void print(const List<T> &con) {
-//    for (auto it = con.begin(); it != con.end(); ++it)
-//        cout << it.data() << "   ";
-//    cout << endl;
-//}
 
 int main () {
 

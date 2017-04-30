@@ -1,5 +1,4 @@
 #include <iostream>
-#include <list>
 #include "List.h"
 
 using namespace std;
@@ -28,8 +27,6 @@ int main () {
         List<List<int>> l3;
         l3.push_back(std::move(l1));
         l3.push_back(std::move(l2));
-
-        l3.find(l2).data().begin().data()=-1;
 
         for (auto i = l3.begin(); i != l3.end(); ++i)
             print(i.data());

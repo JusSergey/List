@@ -12,20 +12,15 @@ List<T>::List() :
     _begin(nullptr),
     _end(new Block(T())),
     _size(0)
-{
-//    _begin = nullptr,
-//            _end = new Block(T()),
-//            _size = 0;
-}
+{}
 
 template<typename T>
 List<T>::~List()
 {
     size_t sz = size();
     Block *tmp;
-#include <iostream>
+
     while (sz > 0) {
-        std::cout << "Delete " << _begin << '\n';
         tmp = _begin->next;
         delete _begin;
         _begin = tmp;

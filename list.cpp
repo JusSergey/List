@@ -1,25 +1,38 @@
 #include "list.h"
 
-template <typename T>
-List<T>::List() :
+template<typename T>
+List<T>::List(const std::initializer_list<T> &init_list) : List<T>()
+{
+    for (const auto &i : init_list)
+        push_back(i);
+}
+
+template<typename T>
+List<T>::List() /*:
     _begin(nullptr),
-    _end(new Block(0)),
-    _size(0)
-{}
+    _end(new Block(0))/*,
+    _size(0)*/
+{
+    _begin = nullptr,
+            _end = new Block(T()),
+            _size = 0;
+}
 
 template<typename T>
 List<T>::~List()
 {
     size_t sz = size();
     Block *tmp;
-
+#include <iostream>
     while (sz > 0) {
+        std::cout << "Delete " << _begin << '\n';
         tmp = _begin->next;
         delete _begin;
         _begin = tmp;
         --sz;
     }
-    delete _end;
+    if (_end)
+        delete _end;
 }
 
 template<typename T>
@@ -94,6 +107,15 @@ void List<T>::push_back(const T &value)
 }
 
 template<typename T>
+void List<T>::push_back(T &&value)
+{
+    const T &tmp = value;
+    push_back(tmp);
+    value._movedListObj();
+}
+
+
+template<typename T>
 void List<T>::pop_back()
 {
     if (_size == 1) {
@@ -157,20 +179,6 @@ template<typename T>
 void List<T>::clear()
 {
     erase(begin(), end());
-}
-
-template <typename T>
-void List<T>::print() {
-
-#include <iostream>
-
-    if (empty())
-        return;
-
-    for (auto it = begin(); it != end(); ++it)
-        std::cout << it.data() << "   ";
-
-    std::cout << '\n';
 }
 
 template<typename T>
@@ -244,6 +252,13 @@ void List<T>::insert(List::Iterator iter, const T &obj)
         iter.currBlock->next->prev = ins;
         iter.currBlock->next = ins;
     }
+}
+
+template<typename T>
+void List<T>::_movedListObj()
+{
+    _size = 0;
+    _end = 0;
 }
 
 template<typename T>

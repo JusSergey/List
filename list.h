@@ -2,6 +2,7 @@
 #define LIST_H
 
 #include <functional>
+#include <initializer_list>
 
 template <typename T>
 class List
@@ -63,6 +64,7 @@ public:
         }
     };
 
+    List(const std::initializer_list<T> &init_list);
     List();
    ~List();
 
@@ -76,12 +78,12 @@ public:
 
 public:
     void push_back(const T &value);
+    void push_back(T &&value);
     void pop_back();
 
     void push_front(const T &value);
     void pop_front();
 
-    void print();
     void reverse();
     void clear();
     void erase(Iterator iter);
@@ -113,6 +115,10 @@ public:
     inline Iterator end()    const { return Iterator(_end);   }
     inline Iterator rbegin() const { return Iterator(_end->prev);   }
     inline Iterator rend()   const { return Iterator(_begin->prev); }
+    inline const Iterator cbegin()  const { return Iterator(_begin); }
+    inline const Iterator cend()    const { return Iterator(_end);   }
+    inline const Iterator crbegin() const { return Iterator(_end->prev);   }
+    inline const Iterator crend()   const { return Iterator(_begin->prev); }
     inline size_t   size()   const { return _size; }
     inline bool     empty()  const { return!_size; }
 
@@ -123,6 +129,10 @@ private:
     Block *_begin;
     Block *_end;
     size_t _size;
+    friend class List<List<T>>;
+
+private:
+    void _movedListObj();
 
 };
 

@@ -26,6 +26,7 @@ List<T>::~List()
         _begin = tmp;
         --sz;
     }
+
     if (_end)
         delete _end;
 }
@@ -49,7 +50,6 @@ bool List<T>::operator == (const List<T> &comp_list)
 template<typename T>
 List<T> &List<T>::operator =(const List<T> &src)
 {
-
     const size_t count = std::min(_size, src._size);
 
     auto iter_my = begin();
@@ -65,11 +65,13 @@ List<T> &List<T>::operator =(const List<T> &src)
             push_back(iter_src.data());
         }
     }
+
     else {
         size_t sz = _size - count;
         for (int i = 0; i < sz; i++)
             pop_front();
     }
+
     return *this;
 }
 
@@ -80,6 +82,7 @@ void List<T>::push_back(const T &value)
         push_front(value);
         return;
     }
+
     Block *tmp = new Block(value);
 
     if (!_begin) {

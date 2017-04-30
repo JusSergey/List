@@ -20,21 +20,23 @@ public:
             data(obj),
             next(nullptr),
             prev(nullptr),
-            curr(this) {}
+            curr(this)
+        {}
 
         Block () :
             next(nullptr),
-            prev(nullptr) {}
+            prev(nullptr)
+        {}
 
     };
 
     struct Iterator {
 
-        bool operator == (const Iterator  &iter) {
+        bool operator == (const Iterator &iter) {
             return currBlock == iter.currBlock;
         }
 
-        bool operator != (const Iterator  &iter) {
+        bool operator != (const Iterator &iter) {
             return currBlock != iter.currBlock;
         }
 
